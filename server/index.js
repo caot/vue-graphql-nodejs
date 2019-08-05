@@ -1,3 +1,5 @@
+// import Champion from './champion'
+
 /*
   express and express-graphql will let us response to HTTP requests
   buildSchema is used to define the types (more soon)
@@ -16,6 +18,13 @@ const cors = require('cors')
 const schema = buildSchema(`
   type Query {
     language: String
+    getChampions: [Champion]
+    getChampionByName(name: String!): Champion
+  }
+
+  type Champion {
+    name: String
+    attackDamage: Float
   }
 `)
 /*
@@ -23,13 +32,29 @@ const schema = buildSchema(`
  typed — fields have types, and if something doesn’t match up, and error is thrown.
  */
 
+class Champion {
+    constructor(name, attackDamage) {
+        this.name = name
+        this.attackDamage = attackDamage
+    }
+}
+
 /*
  Unlike REST APIs, Graph APIs have just one endpoint, which responds to all requests.
  This is called a resolver. I’ll call mine rootValue, and include the implementation
  for the language query:
  */
+const champions = [
+    new Champion('Ashe', 100),
+    new Champion('Vayne', 200)
+]
+
 const rootValue = {
-    language: () => 'GraphQL'
+    language: () => 'GraphQL',
+    getChampions: () => champions,
+    getChampionByName: ({ name }) => {
+        return champions.find(x => x.name === name)
+    }
 }
 /*
  language just returns a String. If we returned a different type, for example 1 or {},

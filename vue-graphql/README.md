@@ -1,3 +1,8 @@
+# server
+### Run server
+```
+node server
+```
 # vue-graphql
 
 ## Project setup

@@ -1,1 +1,1 @@
-[GraphQL basics and practical examples with Vue](https://medium.com/@lachlanmiller_52885/graphql-basics-and-practical-examples-with-vue-6b649b9685e0)
+vue-graphql/README.md
